@@ -1,0 +1,46 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int partition(vector <int> &arr ,int low, int high){
+int pivot = arr[low];
+int i =low;
+int j =high;
+while(i<j){
+    while(arr[i]<=pivot && i<high){
+        i++;
+    }
+     while(arr[i]>pivot && j>low){
+        j++;
+    }
+    if(i<j){
+        swap(arr[i],arr[j]);
+    }
+}
+swap(pivot,arr[j]);
+return j;
+}
+void qs(vector <int> &arr ,int low, int high){
+    if(low<high){
+        int pindex = partition(arr,low,high);
+        qs(arr,low,pindex-1);
+         qs(arr,pindex+1,high);
+
+    }
+}
+
+int main(){
+vector<int> arr ;
+arr.push_back(4);
+arr.push_back(12);
+arr.push_back(6);
+arr.push_back(9);
+arr.push_back(8);
+arr.push_back(15);
+int n= arr.size();
+ qs(arr,0,n-1);
+
+for(int i=0;i<n;i++){
+    cout<<arr[i]<<" ";
+}
+}
